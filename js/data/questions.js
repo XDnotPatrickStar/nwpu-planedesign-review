@@ -577,8 +577,8 @@ var QUESTION_BANK = [
     blanks: [{ id: 1, answer: "液压能", alternatives: [] }],
     domain: "液压系统", difficulty: 1 },
   // Q110
-  { id: 110, text: "在液压系统中，液体在管路中的能量损失，具体表现为液体压力的降低，即压力损失，包括{{1}}。",
-    blanks: [{ id: 1, answer: "沿程损失和局部损失", alternatives: ["沿程损失、局部损失"] }],
+  { id: 110, text: "在液压系统中，液体在管路中的能量损失，具体表现为液体压力的降低，即压力损失，包括{{1}}和局部损失。",
+    blanks: [{ id: 1, answer: "沿程损失", alternatives: [] }],
     domain: "液压系统", difficulty: 2 },
   // Q111
   { id: 111, text: "液压油的黏温特性是：温度越低，黏度越大；压力越大，黏度{{1}}。",
