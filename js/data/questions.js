@@ -254,10 +254,12 @@ var QUESTION_BANK = [
     ],
     domain: "结构力学", difficulty: 1 },
   // Q55
-  { id: 55, text: "承力结构通常包括: {{1}}，纵向构件，横向构件，{{2}}。",
+  { id: 55, text: "承力结构通常包括: {{1}}，{{2}}，{{3}}，{{4}}。",
     blanks: [
       { id: 1, answer: "蒙皮", alternatives: [] },
-      { id: 2, answer: "接头", alternatives: [] }
+      { id: 2, answer: "纵向构件", alternatives: [] },
+      { id: 3, answer: "横向构件", alternatives: [] },
+      { id: 4, answer: "接头", alternatives: [] }
     ],
     domain: "结构力学", difficulty: 2 },
   // Q56
@@ -270,8 +272,11 @@ var QUESTION_BANK = [
     ],
     domain: "结构力学", difficulty: 2 },
   // Q57
-  { id: 57, text: "长桁的功能是：长桁承受局部空气力载荷；支持和加强蒙皮；并将{{1}}互相连系起来。",
-    blanks: [{ id: 1, answer: "翼肋", alternatives: [] }],
+  { id: 57, text: "长桁的功能是：{{1}}；支持和加强蒙皮；并将{{2}}互相连系起来。",
+    blanks: [
+      { id: 1, answer: "长桁承受局部空气力载荷", alternatives: [] },
+      { id: 2, answer: "翼肋", alternatives: [] }
+    ],
     domain: "结构力学", difficulty: 2 },
   // Q58
   { id: 58, text: "机翼受到弯曲时，上、下翼面的长桁产生{{1}}和{{2}}的轴向力，形成弯矩。",
