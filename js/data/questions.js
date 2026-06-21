@@ -272,10 +272,11 @@ var QUESTION_BANK = [
     ],
     domain: "结构力学", difficulty: 2 },
   // Q57
-  { id: 57, text: "长桁的功能是：{{1}}；支持和加强蒙皮；并将{{2}}互相连系起来。",
+  { id: 57, text: "长桁的功能是：{{1}}；{{2}}；并将{{3}}互相连系起来。",
     blanks: [
       { id: 1, answer: "长桁承受局部空气力载荷", alternatives: [] },
-      { id: 2, answer: "翼肋", alternatives: [] }
+      { id: 2, answer: "支持和加强蒙皮", alternatives: [] },
+      { id: 3, answer: "翼肋", alternatives: [] }
     ],
     domain: "结构力学", difficulty: 2 },
   // Q58
