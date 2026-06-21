@@ -589,8 +589,8 @@ var QUESTION_BANK = [
     blanks: [{ id: 1, answer: "矿物基液压油", alternatives: [] }],
     domain: "液压系统", difficulty: 2 },
   // Q113 - 原文档为陈述知识点
-  { id: 113, text: "液压系统的设计要求包括性能要求、使用要求、载荷要求。",
-    blanks: [],
+  { id: 113, text: "液压系统的设计要求包括性能要求、{{1}}、载荷要求。",
+    blanks: [{ id: 1, answer: "使用要求", alternatives: [] }],
     domain: "液压系统", difficulty: 1 },
   // Q114
   { id: 114, text: "液压系统中蓄能器的功用有：减少压力冲击、作为辅助动力源、{{1}}。",
