@@ -1,7 +1,7 @@
 # 飞机设计工程学填空题复习系统
 
 ## 在线地址
-> 部署后替换为实际 URL
+> https://xdnotpatrickstar.github.io/nwpu-planedesign-review/
 
 ## 使用方式
 1. 打开网址，输入昵称开始刷题
