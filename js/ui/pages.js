@@ -257,16 +257,6 @@ App.Pages = (function() {
         skipBtn.classList.add('btn-primary');
         var showBtn = document.getElementById('btn-show-answer');
         if (showBtn) showBtn.style.display = 'none';
-
-        // 自动跳转下一题（1.2秒后）
-        var autoTimer = setTimeout(function() {
-          goNext(mode, questions, currentIndex);
-        }, 1200);
-        // 如果用户手动点击了下一题就取消自动跳转
-        skipBtn.addEventListener('click', function cancelAuto() {
-          clearTimeout(autoTimer);
-          skipBtn.removeEventListener('click', cancelAuto);
-        }, { once: true });
       });
     }
 
