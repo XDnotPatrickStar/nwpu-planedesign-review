@@ -314,8 +314,11 @@ var QUESTION_BANK = [
     ],
     domain: "结构力学", difficulty: 3 },
   // Q63
-  { id: 63, text: "机翼中，{{1}}对剪切具有最佳受力特性，提供支撑刚度最大，所以剪力由{{1}}来承受。",
-    blanks: [{ id: 1, answer: "梁腹板", alternatives: ["翼梁腹板"] }],
+  { id: 63, text: "机翼中，{{1}}对剪切具有最佳受力特性，提供支撑刚度最大，所以剪力由{{2}}来承受。",
+    blanks: [
+      { id: 1, answer: "梁腹板", alternatives: ["翼梁腹板"] },
+      { id: 2, answer: "梁腹板", alternatives: ["翼梁腹板"] }
+    ],
     domain: "结构力学", difficulty: 2 },
   // Q64
   { id: 64, text: "在对称/反对称的弯矩、剪力和扭矩中，能够在中央翼中实现自平衡的载荷有{{1}}、{{2}}。",
@@ -465,12 +468,13 @@ var QUESTION_BANK = [
     ],
     domain: "结构设计", difficulty: 2 },
   // Q87
-  { id: 87, text: "除{{1}}外，作用在飞机某方向上的所有{{2}}（不包括{{1}}）的合力与{{3}}的比值，称为该方向上的{{4}}。",
+  { id: 87, text: "除{{1}}外，作用在飞机某方向上的所有{{2}}（不包括{{3}}）的合力与{{4}}的比值，称为该方向上的{{5}}。",
     blanks: [
       { id: 1, answer: "重力", alternatives: [] },
       { id: 2, answer: "外力", alternatives: [] },
-      { id: 3, answer: "当时飞机重量", alternatives: ["飞机重量"] },
-      { id: 4, answer: "过载系数", alternatives: [] }
+      { id: 3, answer: "重力", alternatives: [] },
+      { id: 4, answer: "当时飞机重量", alternatives: ["飞机重量"] },
+      { id: 5, answer: "过载系数", alternatives: [] }
     ],
     domain: "结构设计", difficulty: 3 },
   // Q88
