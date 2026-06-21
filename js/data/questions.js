@@ -593,8 +593,8 @@ var QUESTION_BANK = [
     blanks: [{ id: 1, answer: "使用要求", alternatives: [] }],
     domain: "液压系统", difficulty: 1 },
   // Q114
-  { id: 114, text: "液压系统中蓄能器的功用有：减少压力冲击、作为辅助动力源、{{1}}。",
-    blanks: [{ id: 1, answer: "维持系统压力", alternatives: [] }],
+  { id: 114, text: "液压系统中蓄能器的功用有：减少压力冲击、{{1}}、维持系统压力。",
+    blanks: [{ id: 1, answer: "作为辅助动力源", alternatives: [] }],
     domain: "液压系统", difficulty: 1 }
 ];
 
