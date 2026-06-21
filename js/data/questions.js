@@ -456,11 +456,12 @@ var QUESTION_BANK = [
     ],
     domain: "结构设计", difficulty: 3 },
   // Q86
-  { id: 86, text: "新机研制中结构设计工作一般要经过{{1}}、{{2}}、{{3}}、试制与试验、试飞与设计定型和生产定型等六个阶段。",
+  { id: 86, text: "新机研制中结构设计工作一般要经过{{1}}、{{2}}、{{3}}、{{4}}、试飞与设计定型和生产定型等六个阶段。",
     blanks: [
       { id: 1, answer: "方案论证", alternatives: [] },
       { id: 2, answer: "初步设计", alternatives: [] },
-      { id: 3, answer: "详细设计", alternatives: [] }
+      { id: 3, answer: "详细设计", alternatives: [] },
+      { id: 4, answer: "试制与试验", alternatives: [] }
     ],
     domain: "结构设计", difficulty: 2 },
   // Q87
