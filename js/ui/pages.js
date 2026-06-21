@@ -865,7 +865,7 @@ App.Pages = (function() {
     html += '<h3>考试默认参数</h3>';
     html += '<div class="setting-row">';
     html += '<label>默认题数</label>';
-    html += '<input type="range" id="setting-count" min="10" max="114" value="' + settings.examQuestionCount + '" style="width:160px;">';
+    html += '<input type="range" id="setting-count" min="10" max="' + QUESTION_BANK.length + '" value="' + settings.examQuestionCount + '" style="width:160px;">';
     html += '<span id="setting-count-val" style="font-weight:600;">' + settings.examQuestionCount + '</span>';
     html += '</div>';
     html += '<div class="setting-row">';
@@ -966,7 +966,7 @@ App.Pages = (function() {
       title: '模拟考试配置',
       content: '<div style="display:flex;flex-direction:column;gap:16px;">' +
         '<div><label style="display:block;margin-bottom:4px;">题目数量: <strong id="exam-cfg-count">' + settings.examQuestionCount + '</strong></label>' +
-        '<input type="range" id="exam-cfg-count-slider" min="10" max="114" value="' + settings.examQuestionCount + '" style="width:100%;"></div>' +
+        '<input type="range" id="exam-cfg-count-slider" min="10" max="' + QUESTION_BANK.length + '" value="' + settings.examQuestionCount + '" style="width:100%;"></div>' +
         '<div><label style="display:block;margin-bottom:4px;">时间限制: <strong id="exam-cfg-time">' + settings.examTimeLimit + '</strong> 分钟</label>' +
         '<input type="range" id="exam-cfg-time-slider" min="10" max="120" step="5" value="' + settings.examTimeLimit + '" style="width:100%;"></div>' +
         '</div>',
