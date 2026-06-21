@@ -83,6 +83,11 @@ App.Renderer = (function() {
         input.className = 'blank-input';
         input.setAttribute('data-blank-id', seg.id);
         input.setAttribute('data-blank-index', blankIndex);
+        input.setAttribute('tabindex', String(blankIndex + 1));
+        input.setAttribute('autocomplete', 'off');
+        input.setAttribute('autocorrect', 'off');
+        input.setAttribute('autocapitalize', 'off');
+        input.placeholder = '空' + seg.id;
 
         // 设置答案
         if (options.showAnswers && question.blanks[blankIndex]) {
@@ -117,6 +122,11 @@ App.Renderer = (function() {
           // 动态调整输入框宽度
           var len = this.value.length || 1;
           this.style.width = Math.max(80, Math.min(300, len * 22 + 20)) + 'px';
+        });
+
+        // 聚焦时自动全选（方便覆盖输入）
+        input.addEventListener('focus', function() {
+          this.select();
         });
 
         qDiv.appendChild(input);

@@ -151,7 +151,14 @@ App.Pages = (function() {
     // 进度条
     html += '<div id="practice-progress"></div>';
 
-    // 题目卡片
+    // 快捷键提示（仅多空题显示）
+    if (!hasNoBlanks && question.blanks.length > 1) {
+      html += '<div style="text-align:center;font-size:0.7rem;color:var(--text-muted);margin-bottom:8px;">';
+      html += '<span class="kbd">Tab</span> 下一个空 &nbsp;';
+      html += '<span class="kbd">Shift+Tab</span> 上一个空 &nbsp;';
+      html += '<span class="kbd">Enter</span> 提交';
+      html += '</div>';
+    }
     html += '<div class="question-card" id="question-container"></div>';
 
     // 反馈区
@@ -238,12 +245,28 @@ App.Pages = (function() {
         // 反馈
         App.Renderer.renderFeedback(document.getElementById('feedback-area'), result);
 
+        // 手机震动反馈
+        if (navigator.vibrate) {
+          navigator.vibrate(result.allCorrect ? [50] : [80, 100, 80]);
+        }
+
         // 更新按钮状态
         submitBtn.disabled = true;
-        document.getElementById('btn-skip').textContent = '下一题 →';
-        document.getElementById('btn-skip').classList.add('btn-primary');
+        var skipBtn = document.getElementById('btn-skip');
+        skipBtn.textContent = '下一题 →';
+        skipBtn.classList.add('btn-primary');
         var showBtn = document.getElementById('btn-show-answer');
         if (showBtn) showBtn.style.display = 'none';
+
+        // 自动跳转下一题（1.2秒后）
+        var autoTimer = setTimeout(function() {
+          goNext(mode, questions, currentIndex);
+        }, 1200);
+        // 如果用户手动点击了下一题就取消自动跳转
+        skipBtn.addEventListener('click', function cancelAuto() {
+          clearTimeout(autoTimer);
+          skipBtn.removeEventListener('click', cancelAuto);
+        }, { once: true });
       });
     }
 
@@ -322,27 +345,55 @@ App.Pages = (function() {
 
     // 键盘快捷键
     var keyHandler = function(e) {
+      var tag = document.activeElement ? document.activeElement.tagName : '';
+      var isInput = tag === 'INPUT' || tag === 'TEXTAREA';
+
+      // Tab：在空格之间跳转（仅在输入框内时处理）
+      if (e.key === 'Tab' && isInput && !e.shiftKey) {
+        e.preventDefault();
+        var inputs = document.querySelectorAll('.blank-input:not([disabled])');
+        if (inputs.length > 1) {
+          var currentIdx = Array.prototype.indexOf.call(inputs, document.activeElement);
+          var nextIdx = (currentIdx + 1) % inputs.length;
+          inputs[nextIdx].focus();
+          inputs[nextIdx].select();
+        }
+        return;
+      }
+      if (e.key === 'Tab' && e.shiftKey && isInput) {
+        e.preventDefault();
+        var inputs2 = document.querySelectorAll('.blank-input:not([disabled])');
+        if (inputs2.length > 1) {
+          var curIdx2 = Array.prototype.indexOf.call(inputs2, document.activeElement);
+          var prevIdx2 = curIdx2 <= 0 ? inputs2.length - 1 : curIdx2 - 1;
+          inputs2[prevIdx2].focus();
+          inputs2[prevIdx2].select();
+        }
+        return;
+      }
+
       if (e.key === 'Enter' && !answered) {
         e.preventDefault();
         var sb = document.getElementById('btn-submit');
         if (sb && !hasNoBlanks) {
           sb.click();
         } else if (hasNoBlanks) {
-          // 无空陈述题：Enter直接进入下一题
           document.getElementById('btn-skip').click();
         }
       } else if (e.key === 'ArrowRight' || e.key === ' ') {
-        e.preventDefault();
-        document.getElementById('btn-skip').click();
-      } else if (e.key === 'ArrowRight' || e.key === ' ') {
+        // 如果焦点在输入框中，不拦截空格（用于输入）和右箭头（光标移动）
+        if (isInput && (e.key === ' ' || (e.key === 'ArrowRight' && document.activeElement.selectionStart < document.activeElement.value.length))) {
+          return;
+        }
         e.preventDefault();
         document.getElementById('btn-skip').click();
       } else if (e.key === 'ArrowLeft') {
+        if (isInput && document.activeElement.selectionStart > 0) return;
         e.preventDefault();
         if (!App.State.getProgress().isFirst) {
           document.getElementById('btn-prev').click();
         }
-      } else if (e.key === 's' || e.key === 'S') {
+      } else if ((e.key === 's' || e.key === 'S') && !isInput) {
         var showBtn = document.getElementById('btn-show-answer');
         if (showBtn && showBtn.style.display !== 'none') {
           showBtn.click();
@@ -350,8 +401,43 @@ App.Pages = (function() {
       }
     };
     document.addEventListener('keydown', keyHandler);
+
+    // ── 移动端滑动手势 ──
+    var touchStartX = 0, touchStartY = 0;
+    var touchHandler = function(e) {
+      if (e.type === 'touchstart') {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      } else if (e.type === 'touchend') {
+        var dx = e.changedTouches[0].clientX - touchStartX;
+        var dy = e.changedTouches[0].clientY - touchStartY;
+        // 水平滑动超过 60px 且大于垂直滑动
+        if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy)) {
+          e.preventDefault();
+          if (dx < -40) {
+            // 左滑 → 下一题
+            document.getElementById('btn-skip').click();
+          } else if (dx > 40) {
+            // 右滑 → 上一题
+            if (!App.State.getProgress().isFirst) {
+              document.getElementById('btn-prev').click();
+            }
+          }
+        }
+      }
+    };
+    var mainArea = document.getElementById('main');
+    if (mainArea) {
+      mainArea.addEventListener('touchstart', touchHandler, { passive: true });
+      mainArea.addEventListener('touchend', touchHandler, { passive: false });
+    }
+
     _currentCleanup = function() {
       document.removeEventListener('keydown', keyHandler);
+      if (mainArea) {
+        mainArea.removeEventListener('touchstart', touchHandler);
+        mainArea.removeEventListener('touchend', touchHandler);
+      }
     };
   }
 
